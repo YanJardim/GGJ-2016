@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Net.Sockets;
-using System;
 
 public class Client : MonoBehaviour {
     bool connected = false;
@@ -18,12 +16,8 @@ public class Client : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if(connected && stream.DataAvailable)
-        {
-
-            System.Byte[] bytes = new System.Byte[256];
-            
+        {            
             Debug.Log(sr.ReadLine());
-
         }
 
     }
@@ -32,13 +26,6 @@ public class Client : MonoBehaviour {
     {
         sw.WriteLine(message);
         sw.Flush();
-    }
-
-    byte[] toByte(string str)
-    {
-        byte[] bytes = new byte[str.Length * sizeof(char)];
-        System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-        return bytes;
     }
 
     void Connect(string server)
