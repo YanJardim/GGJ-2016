@@ -7,6 +7,7 @@ public class Server : MonoBehaviour {
     TcpListener server;
     NetworkStream stream;
     System.IO.StreamReader sr;
+    System.IO.StreamWriter sw;
 
     string mensagem = "Sem mensagem";
 
@@ -29,9 +30,11 @@ public class Server : MonoBehaviour {
         
     }
 
+
     void Send(string message)
     {
-        stream.Write(toByte(message), 0, message.Length);
+        sw.WriteLine(message);
+        sw.Flush();
     }
 
     // Update is called once per frame
@@ -43,37 +46,20 @@ public class Server : MonoBehaviour {
             TcpClient client = server.AcceptTcpClient();
             NetworkStream stream = client.GetStream();
             sr = new System.IO.StreamReader(stream);
+            sw = new System.IO.StreamWriter(stream);
+            
             mensagem = "Conectado!!";
             connected = true;
         }
 
         if (connected)
         {
-            // if (!stream.DataAvailable) return;
             
-            int i;
             System.Byte[] bytes = new System.Byte[256];
-            string data;
 
             mensagem = "Bytes";
-
             mensagem = sr.ReadLine();
-
-            /*mensagem = "Bytes";
-
-            while (bytesCount != 0)
-            {
-                // Translate data bytes to a ASCII string.
-                data = System.Text.Encoding.ASCII.GetString(bytes, 0, bytesCount);
-               
-                // Process the data sent by the client.
-                mensagem = data;
-
-                byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
-                
-                Debug.Log("Sent: " + data);
-                bytesCount = stream.Read(bytes, 0, bytes.Length);
-            }*/
+            Send("FOIFOI"); 
         }
 
     }

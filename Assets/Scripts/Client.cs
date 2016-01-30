@@ -8,6 +8,7 @@ public class Client : MonoBehaviour {
     TcpClient client;
     NetworkStream stream;
     System.IO.StreamWriter sw;
+    System.IO.StreamReader sr;
 
     // Use this for initialization
     void Start () {
@@ -16,25 +17,15 @@ public class Client : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(false && connected && stream.DataAvailable)
+        if(connected && stream.DataAvailable)
         {
-            int i;
-            Byte[] bytes = new Byte[256];
-            string data; 
 
-            while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
-            {
-                // Translate data bytes to a ASCII string.
-                data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                Debug.Log("Received: "+ data);
+            System.Byte[] bytes = new System.Byte[256];
+            
+            Debug.Log(sr.ReadLine());
 
-                // Process the data sent by the client.
-                data = data.ToUpper();
-                
-                Debug.Log("Sent: " + data);
-            }
         }
-        
+
     }
 
     void Send(string message)
@@ -62,6 +53,7 @@ public class Client : MonoBehaviour {
 
             stream = client.GetStream();
             sw = new System.IO.StreamWriter(stream);
+            sr = new System.IO.StreamReader(stream);
             Debug.Log("Conectou!");
             connected = true;
         }
