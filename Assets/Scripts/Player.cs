@@ -22,10 +22,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-
-        transform.Translate(h * currentSpeed * Time.deltaTime, v * currentSpeed * Time.deltaTime, 0);
+        
         
 
         if (Input.GetAxis("Run") != 0)
@@ -41,5 +38,18 @@ public class Player : MonoBehaviour
         }
               
     }
+
+    void FixedUpdate()
+    {
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        transform.Translate(h * currentSpeed * Time.deltaTime, v * currentSpeed * Time.deltaTime, 0);
+
+        GetComponent<Rigidbody2D>().velocity = new Vector2(h * currentSpeed, v * currentSpeed);
+    }
+
+
+
 
 }

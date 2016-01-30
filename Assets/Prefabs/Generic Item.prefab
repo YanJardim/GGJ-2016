@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 452112}
   - 212: {fileID: 21292214}
   - 82: {fileID: 8243764}
+  - 61: {fileID: 6131612}
   m_Layer: 0
   m_Name: Generic Item
   m_TagString: Untagged
@@ -24,11 +25,25 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalPosition: {x: -2.8, y: 3.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!61 &6131612
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 179038}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!82 &8243764
 AudioSource:
   m_ObjectHideFlags: 1
@@ -57,12 +72,12 @@ AudioSource:
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0.005868835
-      value: 1
+    - time: 0
+      value: 1.013253
       inSlope: 0
       outSlope: -1.0059035
       tangentMode: 0
-    - time: 0.058295943
+    - time: 0.06726456
       value: 0
       inSlope: -1.0059035
       outSlope: 0
