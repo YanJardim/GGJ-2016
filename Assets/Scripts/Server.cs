@@ -10,6 +10,7 @@ public class Server : MonoBehaviour {
     System.IO.StreamWriter sw;
     Thread thread;
 
+    bool parar = false;
     string mensagem = "Sem mensagem";
 
     public int port;
@@ -44,7 +45,7 @@ public class Server : MonoBehaviour {
         sw = new System.IO.StreamWriter(stream);
         mensagem = "Conectado!!";
 
-        while (true)
+        while (!parar)
         {
             mensagem = sr.ReadLine();
             Send("FOIFOI");
@@ -58,7 +59,7 @@ public class Server : MonoBehaviour {
         {
             stream.Close();
             client.Close();
-            thread.Abort();
+            parar = true; // Encerra o loop da thread, que se encerra em seguida
         }
         catch (System.Exception e)
         {
