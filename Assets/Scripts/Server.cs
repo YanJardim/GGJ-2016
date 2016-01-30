@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Net.Sockets;
+using System.Threading;
 
 public class Server : MonoBehaviour {
-    bool connected = false;
-    TcpClient client;
     TcpListener server;
+    TcpClient client;
     NetworkStream stream;
     System.IO.StreamReader sr;
     System.IO.StreamWriter sw;
+    Thread thread;
 
     string mensagem = "Sem mensagem";
 
@@ -18,50 +19,51 @@ public class Server : MonoBehaviour {
         server = new TcpListener(System.Net.IPAddress.Loopback, port);
         server.Start();
 
-        // Get a client stream for reading and writing.
-        //  Stream stream = client.GetStream();
-        
+        thread = new Thread(LoopMensagem);
+        thread.Start();
     }
 
 
     void Send(string message)
     {
+        mensagem = "ENTROU AQUI";
         sw.WriteLine(message);
         sw.Flush();
     }
 
-    // Update is called once per frame
-    void Update()
+    void LoopMensagem()
     {
-        if(!connected)
+        while (!server.Pending())
         {
-            if (!server.Pending()) return;
-            TcpClient client = server.AcceptTcpClient();
-            NetworkStream stream = client.GetStream();
-            sr = new System.IO.StreamReader(stream);
-            sw = new System.IO.StreamWriter(stream);
-            
-            mensagem = "Conectado!!";
-            connected = true;
+            mensagem = "Loop espera Pending";
+            Thread.Sleep(10);
         }
+        client = server.AcceptTcpClient();
+        stream = client.GetStream();
+        sr = new System.IO.StreamReader(stream);
+        sw = new System.IO.StreamWriter(stream);
+        mensagem = "Conectado!!";
 
-        if (connected)
+        while (true)
         {
             mensagem = sr.ReadLine();
-            Send("FOIFOI"); 
+            Send("FOIFOI");
         }
-
     }
 
     void OnApplicationQuit()
     {
         // Close everything.
-        if(connected)
+        try
         {
             stream.Close();
             client.Close();
+            thread.Abort();
         }
-
+        catch (System.Exception e)
+        {
+            mensagem = e.Message;
+        }
     }
 
     void OnGUI()

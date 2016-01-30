@@ -1,25 +1,36 @@
 ﻿using UnityEngine;
 using System.Net.Sockets;
+using System.Threading;
 
 public class Client : MonoBehaviour {
-    bool connected = false;
-    TcpClient client;
+    Thread thread = null;
     NetworkStream stream;
-    System.IO.StreamWriter sw;
     System.IO.StreamReader sr;
+    System.IO.StreamWriter sw;
+    TcpClient client;
 
     // Use this for initialization
     void Start () {
+        // Get a client stream for reading and writing.
+        //  Stream stream = client.GetStream();
         Connect("127.0.0.1");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if(connected && stream.DataAvailable)
-        {            
-            Debug.Log(sr.ReadLine());
-        }
 
+        stream = client.GetStream();
+        sw = new System.IO.StreamWriter(stream);
+        sr = new System.IO.StreamReader(stream);
+
+        thread = new Thread(LoopMensagem);
+        thread.Start();
+	}
+
+	void LoopMensagem () {
+        while (client.Connected)
+        {
+            if (stream.DataAvailable)
+            {
+                Debug.Log(sr.ReadLine());
+            }
+        }
     }
 
     void Send(string message)
@@ -35,14 +46,7 @@ public class Client : MonoBehaviour {
             int port = 5050;
             client = new TcpClient(server, port);
 
-            // Get a client stream for reading and writing.
-            //  Stream stream = client.GetStream();
-
-            stream = client.GetStream();
-            sw = new System.IO.StreamWriter(stream);
-            sr = new System.IO.StreamReader(stream);
             Debug.Log("Conectou!");
-            connected = true;
         }
         catch (System.Exception e)
         {
@@ -54,6 +58,7 @@ public class Client : MonoBehaviour {
     {
         stream.Close();
         client.Close();
+        thread.Abort();
     }
 
     void OnGUI()
