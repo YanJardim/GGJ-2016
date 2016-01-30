@@ -10,11 +10,18 @@ public enum blocks{
 
 public class GridBehaviour : MonoBehaviour {
 
+    public static GridBehaviour instance;
+
     public GameObject grass;
 
     public const int gridX = 33, gridY = 33;
 
     public blocks[,] grid = new blocks[gridX, gridY];
+
+    void Awake()
+    {
+        instance = this;
+    }
 
 	// Use this for initialization
 	void Start () {
