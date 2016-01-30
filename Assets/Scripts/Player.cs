@@ -11,15 +11,15 @@ public class Player : MonoBehaviour
 
     private int currentSpeed;
 
-    // Use this for initialization
+	// Use this for initialization
     void Start()
     {
 
         currentSpeed = walkSpeed;
       
-    }
-
-    // Update is called once per frame
+	}
+	
+	// Update is called once per frame
     void Update()
     {
         
@@ -45,9 +45,9 @@ public class Player : MonoBehaviour
         float v = Input.GetAxis("Vertical");
 
         transform.Translate(h * currentSpeed * Time.deltaTime, v * currentSpeed * Time.deltaTime, 0);
-
+	
         GetComponent<Rigidbody2D>().velocity = new Vector2(h * currentSpeed, v * currentSpeed);
-    }
+	}
 
 
 
