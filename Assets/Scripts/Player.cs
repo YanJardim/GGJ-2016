@@ -5,7 +5,7 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log("DEU!");
+        Debug.Log("FOI!");
 	}
 	
 	// Update is called once per frame
