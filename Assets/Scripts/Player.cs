@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
         float v = Input.GetAxis("Vertical");
 
         transform.Translate(h * currentSpeed * Time.deltaTime, v * currentSpeed * Time.deltaTime, 0);
+        
 
         if (Input.GetAxis("Run") != 0)
         {
