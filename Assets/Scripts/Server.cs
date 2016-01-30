@@ -13,13 +13,6 @@ public class Server : MonoBehaviour {
 
     public int port;
 
-    byte[] toByte(string str)
-    {
-        byte[] bytes = new byte[str.Length * sizeof(char)];
-        System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-        return bytes;
-    }
-
     // Use this for initialization
     void Start () {
         server = new TcpListener(System.Net.IPAddress.Loopback, port);
@@ -54,10 +47,6 @@ public class Server : MonoBehaviour {
 
         if (connected)
         {
-            
-            System.Byte[] bytes = new System.Byte[256];
-
-            mensagem = "Bytes";
             mensagem = sr.ReadLine();
             Send("FOIFOI"); 
         }
