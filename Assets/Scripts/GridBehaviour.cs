@@ -53,11 +53,12 @@ public class GridBehaviour : MonoBehaviour {
             {
                 if (grid[i, j] == blocks.GRASS)
                 {
-                    GameObject aux = Instantiate(grass, new Vector2(transform.position.x + i, transform.position.y + j), grass.transform.rotation) as GameObject;
-                   
+                    //GameObject aux = Instantiate(grass, new Vector2(transform.position.x + i, transform.position.y + j), grass.transform.rotation) as GameObject;
+                    GameObject aux = Instantiate(grass, new Vector3(transform.position.x + i, 0, transform.position.y + j), grass.transform.rotation) as GameObject;
                     aux.transform.SetParent(GameObject.Find("Grid").transform);
                 }
             }
         }
+        GameObject.Find("Grid").transform.position = new Vector3(-16, 0, -16);
     }
 }
