@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
 
     public List<GameObject> relicObjects = new List<GameObject>();
 
+    public List<GameObject> threes = new List<GameObject>();
+
     [Range(0, 20)]
     public int playerSpeed;
     [Range(0, 20)]
