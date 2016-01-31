@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Net.Sockets;
 using System.Threading;
+using UnityEngine.SceneManagement;
 
 public class Client : MonoBehaviour {
     Thread thread = null;
@@ -8,8 +9,34 @@ public class Client : MonoBehaviour {
     System.IO.StreamReader sr;
     System.IO.StreamWriter sw;
     TcpClient client;
+    string message;
+    bool mudar = false;
+    
 
-    public GameObject[] sincronizar;
+    void Update()
+    {
+        if(mudar)
+        {
+            string[] data = message.Split(new char[] { ';' }); ;
+            GameObject objeto = GameObject.Find(data[0]);
+
+            Vector3 trocar = new Vector3(float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
+            
+            if (objeto.GetComponent<Renderer>().enabled)
+            {
+                objeto.transform.Translate(new Vector3(1000, 1000, 1000));
+                objeto.GetComponent<Renderer>().enabled = false;
+            }
+            else
+            {
+                objeto.transform.position = trocar;
+                objeto.GetComponent<Renderer>().enabled = true;
+            }
+
+            
+            mudar = false;
+        }
+    }
 
     public void Conectar(object ipServer) {
         // Get a client stream for reading and writing.
@@ -20,25 +47,19 @@ public class Client : MonoBehaviour {
         thread = new Thread(LoopMensagem);
         thread.Start();
 	}
-
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            this.Flush();
-        }
-    }
+    
 
 	void LoopMensagem () {
         while (client.Connected)
         {
             if (stream.DataAvailable)
             {
-                string[] data = sr.ReadLine().Split(new char[] { ';' }); ;
-                GameObject objeto = GameObject.Find(data[0]);
-
-                Vector3 trocar = new Vector3(System.Int32.Parse(data[1]), System.Int32.Parse(data[2]), System.Int32.Parse(data[3]));
-                objeto.transform.position = trocar;
+                string temp = sr.ReadLine();
+                if (temp != null)
+                {
+                    message = temp;
+                    mudar = true;
+                }
 
             }
         }
@@ -50,14 +71,11 @@ public class Client : MonoBehaviour {
         sw.Flush();
     }
 
-    void Flush()
+    void SendObject(object obj)
     {
-        for(int i = 0; i < sincronizar.Length; i++)
-        {
-            string s = sincronizar[i].name + ";" + sincronizar[i].transform.position.x + ";" + sincronizar[i].transform.position.y + ";" + sincronizar[i].transform.position.z;
-            Debug.Log(s);
-            Send(s);
-        }
+        GameObject item = obj as GameObject;
+        string s = item.name + ";" + item.transform.position.x + ";" + item.transform.position.y + ";" + item.transform.position.z;
+        Send(s);
     }
 
     void Connect(string server)
@@ -69,7 +87,7 @@ public class Client : MonoBehaviour {
             stream = client.GetStream();
             sw = new System.IO.StreamWriter(stream);
             sr = new System.IO.StreamReader(stream);
-            Debug.Log("Conectou!");
+            SceneManager.LoadScene("Game", LoadSceneMode.Additive);
         }
         catch (System.Exception e)
         {

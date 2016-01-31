@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using System.Threading;
 using System.Net;
+using UnityEngine.SceneManagement;
 
 public class Server : MonoBehaviour
 {
@@ -11,11 +12,11 @@ public class Server : MonoBehaviour
     System.IO.StreamReader sr;
     System.IO.StreamWriter sw;
     Thread thread;
+    string mensagem = "";
 
     bool mudar = false;
 
-    bool parar = false;
-    string mensagem = "Sem mensagem";
+    bool parar = false, carregar = false;
 
     int port = 5050;
 
@@ -37,39 +38,65 @@ public class Server : MonoBehaviour
             GameObject objeto = GameObject.Find(data[0]);
 
             Vector3 trocar = new Vector3(float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
-            objeto.transform.position = trocar;
+            if (objeto.GetComponent<Renderer>().enabled)
+            {
+                objeto.transform.Translate(new Vector3(1000, 1000, 1000));
+                objeto.GetComponent<Renderer>().enabled = false;
+            }
+            else
+            {
+                objeto.transform.position = trocar;
+                objeto.GetComponent<Renderer>().enabled = true;
+            }
             mudar = false;
         }
+        if(carregar)
+        {
+            SceneManager.LoadScene("Game", LoadSceneMode.Additive);
+            carregar = false;
+        }
+    }
+
+    public bool isConnected()
+    {
+        return (client != null);
     }
 
     void Send(string message)
     {
-        mensagem = "ENTROU AQUI";
         sw.WriteLine(message);
         sw.Flush();
     }
 
+    void SendObject(object obj)
+    {
+        GameObject item = obj as GameObject;
+        string s = item.name + ";" + item.transform.position.x + ";" + item.transform.position.y + ";" + item.transform.position.z;
+        Debug.Log(s);
+        Send(s);
+    }
+
     void LoopMensagem()
     {
-        int i = 0;
         while (!server.Pending())
         {
-            mensagem = "Loop espera Pending" + i;
-            i++;
             Thread.Sleep(10);
         }
         client = server.AcceptTcpClient();
         stream = client.GetStream();
         sr = new System.IO.StreamReader(stream);
         sw = new System.IO.StreamWriter(stream);
-        mensagem = "Conectado!!";
+        carregar = true;
 
         while (!parar)
         {
-            mensagem = sr.ReadLine();
+            string tmp = sr.ReadLine();
 
-            mudar = true;
-            Debug.Log(mensagem);
+            if (tmp != null)
+            {
+                mudar = true;
+                mensagem = tmp;
+            }
         }
     }
 

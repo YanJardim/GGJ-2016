@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Net;
+using UnityEngine.SceneManagement;
 
 public class GUI_Cliserv : MonoBehaviour {
     private string ipServer = "";
@@ -23,7 +24,9 @@ public class GUI_Cliserv : MonoBehaviour {
         {
             if (GUI.Button(new Rect(50, 50, 400, 50), "Server!"))
             {
-                Instantiate(server, transform.position, transform.rotation);
+                GameObject go = Instantiate(server, transform.position, transform.rotation) as GameObject;
+                go.name = "Socket";
+                
                 selecao = 1;  
             }
             else if (GUI.Button(new Rect(50, 120, 400, 50), "Cliente!"))
@@ -31,7 +34,7 @@ public class GUI_Cliserv : MonoBehaviour {
                 selecao = 2;
             }
         }
-        else if (selecao == 1)
+        else if (selecao == 1 && !server.GetComponent<Server>().isConnected())
         {
             GUI.Label(new Rect(50, 50, 400, 50), GetLocalIP());
         }
@@ -40,6 +43,8 @@ public class GUI_Cliserv : MonoBehaviour {
             ipServer = GUI.TextField(new Rect(50, 50, 150, 25), ipServer);
             if (GUI.Button(new Rect(50, 120, 400, 50), "Conectar!!"))
             {
+                client = Instantiate(client, transform.position, transform.rotation) as GameObject;
+                client.name = "Socket";
                 client.SendMessage("Conectar", ipServer);
                 selecao = -1;
             }
