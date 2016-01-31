@@ -44,9 +44,9 @@ public class Player : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        transform.Translate(h * currentSpeed * Time.deltaTime, v * currentSpeed * Time.deltaTime, 0);
+        //transform.Translate(h * currentSpeed * Time.deltaTime, v * currentSpeed * Time.deltaTime, 0);
 	
-        GetComponent<Rigidbody2D>().velocity = new Vector2(h * currentSpeed, v * currentSpeed);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(h * currentSpeed ,v * currentSpeed);
 	}
 
 
