@@ -13,15 +13,16 @@ public class Client : MonoBehaviour {
     bool mudar = false;
     
 
-    void Update()
+    void FixedUpdate()
     {
         if(mudar)
         {
-            string[] data = message.Split(new char[] { ';' }); ;
+            string[] data = message.Split(new char[] { ';' });
+            Debug.Log("RECEBI: " + message);
             GameObject objeto = GameObject.Find(data[0]);
 
             Vector3 trocar = new Vector3(float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
-            
+
             if (objeto.GetComponent<Renderer>().enabled)
             {
                 objeto.transform.Translate(new Vector3(1000, 1000, 1000));
@@ -31,9 +32,13 @@ public class Client : MonoBehaviour {
             {
                 objeto.transform.position = trocar;
                 objeto.GetComponent<Renderer>().enabled = true;
+                if (data[4] == "False")
+                {
+                    objeto.GetComponent<Item>().canMove = false;
+                    objeto.GetComponent<Item>().Invoke("can", 30);
+                }
             }
 
-            
             mudar = false;
         }
     }
@@ -60,7 +65,6 @@ public class Client : MonoBehaviour {
                     message = temp;
                     mudar = true;
                 }
-
             }
         }
     }
@@ -74,7 +78,7 @@ public class Client : MonoBehaviour {
     void SendObject(object obj)
     {
         GameObject item = obj as GameObject;
-        string s = item.name + ";" + item.transform.position.x + ";" + item.transform.position.y + ";" + item.transform.position.z;
+        string s = item.name + ";" + item.transform.position.x + ";" + item.transform.position.y + ";" + item.transform.position.z + ";" + item.GetComponent<Item>().canMove;
         Send(s);
     }
 
@@ -87,7 +91,7 @@ public class Client : MonoBehaviour {
             stream = client.GetStream();
             sw = new System.IO.StreamWriter(stream);
             sr = new System.IO.StreamReader(stream);
-            SceneManager.LoadScene("Game", LoadSceneMode.Additive);
+            SceneManager.LoadScene("Game3", LoadSceneMode.Additive);
         }
         catch (System.Exception e)
         {
@@ -100,7 +104,5 @@ public class Client : MonoBehaviour {
         stream.Close();
         client.Close();
         thread.Abort();
-    }
-
-    
+    }   
 }

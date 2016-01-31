@@ -15,6 +15,7 @@ public class Item : MonoBehaviour
 {
 
     public bool canMove = true;
+    public bool first = true;
 
     public relics relicType;
 

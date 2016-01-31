@@ -61,8 +61,8 @@ public class GridBehaviour : MonoBehaviour {
     {
         for (int i = 0; i < GameManager.instance.relicObjects.Count; i++ )
         {
-            int x = Random.Range(0, gridX);
-            int y = Random.Range(0, gridY);
+                int x = Random.Range(0, gridX);
+                int y = Random.Range(0, gridY);
 
             print("X: " + x + " Y: " + y);
             relics[x, y] = blocks.RELIC;
