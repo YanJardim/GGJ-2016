@@ -85,46 +85,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &458417367
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 458417369}
-  - 114: {fileID: 458417368}
-  m_Layer: 0
-  m_Name: ClientPrefab
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &458417368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 458417367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d8f76d2d9602a84d9489d0beaa4030a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sincronizar: []
---- !u!4 &458417369
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 458417367}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.26580358, y: -0.04567702, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
 --- !u!1 &1095717294
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   server: {fileID: 108984, guid: eea58d9f0a880e64a999d2721cef08a0, type: 2}
-  client: {fileID: 458417367}
+  client: {fileID: 156334, guid: bb9f742c2325b5346b74295c4d1653f3, type: 2}
 --- !u!81 &1095717296
 AudioListener:
   m_ObjectHideFlags: 0

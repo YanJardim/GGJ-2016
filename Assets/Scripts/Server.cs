@@ -39,6 +39,7 @@ public class Server : MonoBehaviour
 
             Vector3 trocar = new Vector3(float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
             objeto.transform.position = trocar;
+            objeto.SetActive(!objeto.activeSelf);
             mudar = false;
         }
         if(carregar)

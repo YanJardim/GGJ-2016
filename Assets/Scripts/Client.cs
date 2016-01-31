@@ -32,6 +32,7 @@ public class Client : MonoBehaviour {
 
                 Vector3 trocar = new Vector3(System.Int32.Parse(data[1]), System.Int32.Parse(data[2]), System.Int32.Parse(data[3]));
                 objeto.transform.position = trocar;
+                objeto.SetActive(!objeto.activeSelf);
 
             }
         }
