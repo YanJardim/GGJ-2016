@@ -83,7 +83,6 @@ public class Server : MonoBehaviour
         while (!parar)
         {
             mensagem = sr.ReadLine();
-
             mudar = true;
             Debug.Log(mensagem);
         }
