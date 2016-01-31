@@ -9,7 +9,7 @@ public class Client : MonoBehaviour {
     System.IO.StreamWriter sw;
     TcpClient client;
 
-    GameObject[] sincronizar;
+    public GameObject[] sincronizar;
 
     // Use this for initialization
     void Start () {
@@ -39,6 +39,16 @@ public class Client : MonoBehaviour {
     {
         sw.WriteLine(message);
         sw.Flush();
+    }
+
+    void Flush()
+    {
+        for(int i = 0; i < sincronizar.Length; i++)
+        {
+            string s = sincronizar[i].name + ";" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z;
+            Debug.Log(s);
+            // Send(sincronizar[i].name + ";" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z);
+        }
     }
 
     void Connect(string server)
