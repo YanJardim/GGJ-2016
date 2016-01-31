@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum blocks{
 
     GRASS,
-    RELIC
+    RELIC,
+    THREE
 };
 
 public class GridBehaviour : MonoBehaviour {
@@ -16,7 +18,10 @@ public class GridBehaviour : MonoBehaviour {
     public const int gridX = 33, gridY = 33;
 
     public blocks[,] grid = new blocks[gridX, gridY];
-    public blocks[,] relics = new blocks[gridX, gridY];
+    public blocks[,] gridGameObjects = new blocks[gridX, gridY];
+
+
+
 
     void Awake()
     {
@@ -26,6 +31,7 @@ public class GridBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         setGrass();
+        setThrees(30);
         setRelics();
 
         drawMap();
@@ -48,6 +54,51 @@ public class GridBehaviour : MonoBehaviour {
         
     }
 
+    public bool checkThreeArea(int x, int y, int tileDistance)
+    {
+            for(int i = 0; i < gridX; i ++){
+                for(int j = 0; j < gridY; j ++){
+                    if(gridGameObjects[i,j] == blocks.THREE){
+                        if (i > x - tileDistance && i < x + tileDistance && j > y - tileDistance && j < y + tileDistance)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+    
+        return true;
+    }
+
+    public void setThrees(int amount)
+    {
+        for (int loops = 0; loops < amount; loops++)
+        {
+            
+            int x = Random.Range(0, gridX);
+            int y = Random.Range(0, gridY);
+
+            if(checkThreeArea(x, y, 3))
+                gridGameObjects[x, y] = blocks.THREE;
+        }
+                    
+
+        for (int i = 0; i < gridX; i++)
+        {
+            for (int j = 0; j < gridY; j++)
+            {
+                if (gridGameObjects[i, j] == blocks.THREE )
+                {
+                    int t = Random.Range(0, GameManager.instance.threes.Count);
+                    GameObject aux = Instantiate(GameManager.instance.threes[t], new Vector2(transform.position.x + i, transform.position.y + j), GameManager.instance.threes[t].transform.rotation) as GameObject;
+
+                    aux.transform.SetParent(GameObject.Find("Grid").transform);
+
+                }
+            }
+        }
+    }
+
     public void setRelics()
     {
         for (int i = 0; i < GameManager.instance.relicObjects.Count; i++ )
@@ -56,7 +107,7 @@ public class GridBehaviour : MonoBehaviour {
             int y = Random.Range(0, gridY);
 
             print("X: " + x + " Y: " + y);
-            relics[x, y] = blocks.RELIC;
+            gridGameObjects[x, y] = blocks.RELIC;
 
         }
 
@@ -65,7 +116,7 @@ public class GridBehaviour : MonoBehaviour {
         {
             for (int j = 0; j < gridY; j++)
             {
-                if (relics[i, j] == blocks.RELIC)
+                if (gridGameObjects[i, j] == blocks.RELIC)
                 {
                     GameObject aux = Instantiate(GameManager.instance.relicObjects[relicIndex], new Vector2(transform.position.x + i, transform.position.y + j), GameManager.instance.relicObjects[relicIndex].transform.rotation) as GameObject;
                     
