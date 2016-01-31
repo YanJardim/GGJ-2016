@@ -6,7 +6,8 @@ public enum blocks{
 
     GRASS,
     RELIC,
-    THREE
+    THREE,
+    ALTAR
 };
 
 public class GridBehaviour : MonoBehaviour {
@@ -20,7 +21,7 @@ public class GridBehaviour : MonoBehaviour {
     public blocks[,] grid = new blocks[gridX, gridY];
     public blocks[,] gridGameObjects = new blocks[gridX, gridY];
 
-
+    public Vector4 altar;
 
 
     void Awake()
@@ -31,8 +32,9 @@ public class GridBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         setGrass();
-        setThrees(30);
         setRelics();
+        setThrees(30);
+        
 
         drawMap();
 	}
@@ -59,7 +61,7 @@ public class GridBehaviour : MonoBehaviour {
             for(int i = 0; i < gridX; i ++){
                 for(int j = 0; j < gridY; j ++){
                     if(gridGameObjects[i,j] == blocks.THREE){
-                        if (i > x - tileDistance && i < x + tileDistance && j > y - tileDistance && j < y + tileDistance)
+                        if (i > x - tileDistance && i < x + tileDistance && j > y - tileDistance && j < y + tileDistance )
                         {
                             return false;
                         }
@@ -78,7 +80,7 @@ public class GridBehaviour : MonoBehaviour {
             int x = Random.Range(0, gridX);
             int y = Random.Range(0, gridY);
 
-            if(checkThreeArea(x, y, 3))
+            if(checkThreeArea(x, y, 3) && gridGameObjects[x, y] != blocks.RELIC)
                 gridGameObjects[x, y] = blocks.THREE;
         }
                     
@@ -98,7 +100,7 @@ public class GridBehaviour : MonoBehaviour {
             }
         }
     }
-
+    //12 até 20 - altar
     public void setRelics()
     {
         for (int i = 0; i < GameManager.instance.relicObjects.Count; i++ )
@@ -106,7 +108,7 @@ public class GridBehaviour : MonoBehaviour {
             int x = Random.Range(0, gridX);
             int y = Random.Range(0, gridY);
 
-            print("X: " + x + " Y: " + y);
+            
             gridGameObjects[x, y] = blocks.RELIC;
 
         }

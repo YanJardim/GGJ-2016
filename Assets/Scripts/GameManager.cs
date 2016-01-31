@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour {
     [Range(0, 20)]
     public int playerRunSpeed;
 
+    [Range(0.0f, 120.0f)]
+    public float gameDuration;
+
     void Awake()
     {
         instance = this;
@@ -22,11 +25,11 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+        gameDuration -= Time.deltaTime;
 	}
 }
