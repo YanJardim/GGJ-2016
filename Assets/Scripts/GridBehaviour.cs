@@ -27,7 +27,7 @@ public class GridBehaviour : MonoBehaviour {
 
     void setAltar()
     {
-        grid[14, 18] = blocks.ALTAR;
+        grid[14, 14] = blocks.ALTAR;
         grid[18, 18] = blocks.ALTAR;
         grid[18, 14] = blocks.ALTAR;
     }
