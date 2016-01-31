@@ -4,7 +4,8 @@ using System.Collections;
 public enum blocks{
 
     GRASS,
-    RELIC
+    RELIC,
+    ALTAR
 };
 
 public class GridBehaviour : MonoBehaviour {
@@ -21,13 +22,21 @@ public class GridBehaviour : MonoBehaviour {
     void Awake()
     {
         instance = this;
+
+    }
+
+    void setAltar()
+    {
+        grid[14, 18] = blocks.ALTAR;
+        grid[18, 18] = blocks.ALTAR;
+        grid[18, 14] = blocks.ALTAR;
     }
 
 	// Use this for initialization
 	void Start () {
         setGrass();
         setRelics();
-
+        setAltar();
         drawMap();
 	}
 	
@@ -91,13 +100,25 @@ public class GridBehaviour : MonoBehaviour {
                     //GameObject aux = Instantiate(grass, new Vector3(transform.position.x + i, 0, transform.position.y + j), grass.transform.rotation) as GameObject;
                     GameObject aux = Instantiate(grass, new Vector2(transform.position.x + i, transform.position.y + j), grass.transform.rotation) as GameObject;
                     aux.transform.SetParent(GameObject.Find("Grid").transform);
+                } else if (grid[i, j] == blocks.ALTAR)
+                {
+                    //GameObject aux = Instantiate(grass, new Vector2(transform.position.x + i, transform.position.y + j), grass.transform.rotation) as GameObject;
+                    //GameObject aux = Instantiate(grass, new Vector3(transform.position.x + i, 0, transform.position.y + j), grass.transform.rotation) as GameObject;
+                    GameObject aux = Instantiate(grass, new Vector2(transform.position.x + i, transform.position.y + j), grass.transform.rotation) as GameObject;
+                    aux.transform.SetParent(GameObject.Find("Grid").transform);
+                    aux.GetComponent<Renderer>().material.color = Color.magenta;
                 }
 
-                
+
 
 
             }
         }
         //GameObject.Find("Grid").transform.position = new Vector3(-16, 0, -16);
+    }
+
+    public blocks getGridItem(int x, int y)
+    {
+        return grid[x, y];
     }
 }

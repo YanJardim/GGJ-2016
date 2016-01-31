@@ -13,6 +13,9 @@ public enum relics
 
 public class Item : MonoBehaviour
 {
+
+    public bool canMove = true;
+
     public relics relicType;
 
     void Start()
@@ -25,5 +28,17 @@ public class Item : MonoBehaviour
         
     }
 
-    
+    void can()
+    {
+        canMove = true;
+    }
+
+    void cant()
+    {
+        canMove = false;
+    }
+
+
+
+
 }
