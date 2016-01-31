@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using System.Threading;
 using System.Net;
+using UnityEngine.SceneManagement;
 
 public class Server : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class Server : MonoBehaviour
 
     bool mudar = false;
 
-    bool parar = false;
+    bool parar = false, carregar = false;
     string mensagem = "Sem mensagem";
 
     int port = 5050;
@@ -38,7 +39,13 @@ public class Server : MonoBehaviour
 
             Vector3 trocar = new Vector3(float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
             objeto.transform.position = trocar;
+            objeto.SetActive(!objeto.activeSelf);
             mudar = false;
+        }
+        if(carregar)
+        {
+            SceneManager.LoadScene("Game", LoadSceneMode.Additive);
+            carregar = false;
         }
     }
 
@@ -47,6 +54,14 @@ public class Server : MonoBehaviour
         mensagem = "ENTROU AQUI";
         sw.WriteLine(message);
         sw.Flush();
+    }
+
+    void SendObject(object obj)
+    {
+        GameObject item = obj as GameObject;
+        string s = item.name + ";" + item.transform.position.x + ";" + item.transform.position.y + ";" + item.transform.position.z;
+        Debug.Log(s);
+        Send(s);
     }
 
     void LoopMensagem()
@@ -63,6 +78,7 @@ public class Server : MonoBehaviour
         sr = new System.IO.StreamReader(stream);
         sw = new System.IO.StreamWriter(stream);
         mensagem = "Conectado!!";
+        carregar = true;
 
         while (!parar)
         {
