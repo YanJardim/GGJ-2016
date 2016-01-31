@@ -17,13 +17,23 @@ public class Client : MonoBehaviour {
     {
         if(mudar)
         {
-            Debug.Log(message);
             string[] data = message.Split(new char[] { ';' }); ;
             GameObject objeto = GameObject.Find(data[0]);
 
-            Vector3 trocar = new Vector3(System.Int32.Parse(data[1]), System.Int32.Parse(data[2]), System.Int32.Parse(data[3]));
-            objeto.SetActive(!objeto.activeSelf);
-            objeto.transform.position = trocar;
+            Vector3 trocar = new Vector3(float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
+            
+            if (objeto.GetComponent<Renderer>().enabled)
+            {
+                objeto.transform.Translate(new Vector3(1000, 1000, 1000));
+                objeto.GetComponent<Renderer>().enabled = false;
+            }
+            else
+            {
+                objeto.transform.position = trocar;
+                objeto.GetComponent<Renderer>().enabled = true;
+            }
+
+            
             mudar = false;
         }
     }
@@ -48,7 +58,6 @@ public class Client : MonoBehaviour {
                 if (temp != null)
                 {
                     message = temp;
-                    Debug.LogWarning(message);
                     mudar = true;
                 }
 
@@ -66,7 +75,6 @@ public class Client : MonoBehaviour {
     {
         GameObject item = obj as GameObject;
         string s = item.name + ";" + item.transform.position.x + ";" + item.transform.position.y + ";" + item.transform.position.z;
-        Debug.Log(s);
         Send(s);
     }
 
@@ -79,7 +87,6 @@ public class Client : MonoBehaviour {
             stream = client.GetStream();
             sw = new System.IO.StreamWriter(stream);
             sr = new System.IO.StreamReader(stream);
-            Debug.Log("Conectou!");
             SceneManager.LoadScene("Game", LoadSceneMode.Additive);
         }
         catch (System.Exception e)
