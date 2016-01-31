@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private int currentSpeed;
     
     public GameObject item = null;
+    public GameObject itemSegurado = null;
 
 	// Use this for initialization
     void Start()
@@ -30,14 +31,15 @@ public class Player : MonoBehaviour
             if (item != null && this.GetComponentsInChildren<Transform>().Length == 2)
             {
                 item.transform.parent = this.transform;
+                itemSegurado = item;
                 //item.GetComponent<SpriteRenderer>().enabled = false;
 
                 GameObject.Find("Socket").SendMessage("SendObject", item);
             }
             else if (this.GetComponentsInChildren<Transform>().Length > 2)
             {
-                item.transform.parent = null;
-
+                itemSegurado.transform.parent = null;
+                itemSegurado = null;
                 GameObject.Find("Socket").SendMessage("SendObject", item);
             }
         }

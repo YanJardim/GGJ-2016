@@ -67,8 +67,8 @@ public class GridBehaviour : MonoBehaviour {
             {
                 if (relics[i, j] == blocks.RELIC)
                 {
-                    GameObject aux = Instantiate(GameManager.instance.relicObjects[relicIndex], new Vector2(transform.position.x + i, transform.position.y + j), grass.transform.rotation) as GameObject;
-                    aux.transform.Rotate(new Vector3(0, 0, 45));
+                    GameObject aux = Instantiate(GameManager.instance.relicObjects[relicIndex], new Vector2(transform.position.x + i, transform.position.y + j), GameManager.instance.relicObjects[relicIndex].transform.rotation) as GameObject;
+                    
                     aux.transform.SetParent(GameObject.Find("GameManager").transform);
 
                     relicIndex++;
@@ -88,7 +88,8 @@ public class GridBehaviour : MonoBehaviour {
                 if (grid[i, j] == blocks.GRASS)
                 {
                     //GameObject aux = Instantiate(grass, new Vector2(transform.position.x + i, transform.position.y + j), grass.transform.rotation) as GameObject;
-                    GameObject aux = Instantiate(grass, new Vector3(transform.position.x + i, 0, transform.position.y + j), grass.transform.rotation) as GameObject;
+                    //GameObject aux = Instantiate(grass, new Vector3(transform.position.x + i, 0, transform.position.y + j), grass.transform.rotation) as GameObject;
+                    GameObject aux = Instantiate(grass, new Vector2(transform.position.x + i, transform.position.y + j), grass.transform.rotation) as GameObject;
                     aux.transform.SetParent(GameObject.Find("Grid").transform);
                 }
 
@@ -97,6 +98,6 @@ public class GridBehaviour : MonoBehaviour {
 
             }
         }
-        GameObject.Find("Grid").transform.position = new Vector3(-16, 0, -16);
+        //GameObject.Find("Grid").transform.position = new Vector3(-16, 0, -16);
     }
 }
