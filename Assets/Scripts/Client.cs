@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Net.Sockets;
 using System.Threading;
+using UnityEngine.SceneManagement;
 
 public class Client : MonoBehaviour {
     Thread thread = null;
@@ -8,8 +9,7 @@ public class Client : MonoBehaviour {
     System.IO.StreamReader sr;
     System.IO.StreamWriter sw;
     TcpClient client;
-
-    public GameObject[] sincronizar;
+    
 
     public void Conectar(object ipServer) {
         // Get a client stream for reading and writing.
@@ -20,14 +20,7 @@ public class Client : MonoBehaviour {
         thread = new Thread(LoopMensagem);
         thread.Start();
 	}
-
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            this.Flush();
-        }
-    }
+    
 
 	void LoopMensagem () {
         while (client.Connected)
@@ -50,14 +43,12 @@ public class Client : MonoBehaviour {
         sw.Flush();
     }
 
-    void Flush()
+    void SendObject(object obj)
     {
-        for(int i = 0; i < sincronizar.Length; i++)
-        {
-            string s = sincronizar[i].name + ";" + sincronizar[i].transform.position.x + ";" + sincronizar[i].transform.position.y + ";" + sincronizar[i].transform.position.z;
-            Debug.Log(s);
-            Send(s);
-        }
+        GameObject item = obj as GameObject;
+        string s = item.name + ";" + item.transform.position.x + ";" + item.transform.position.y + ";" + item.transform.position.z;
+        Debug.Log(s);
+        Send(s);
     }
 
     void Connect(string server)
@@ -73,6 +64,7 @@ public class Client : MonoBehaviour {
         }
         catch (System.Exception e)
         {
+            SceneManager.LoadScene("Game", LoadSceneMode.Additive);
             Debug.Log(e.Message);
         }
     }
