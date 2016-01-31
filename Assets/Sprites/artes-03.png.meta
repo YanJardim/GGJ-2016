@@ -1,0 +1,181 @@
+fileFormatVersion: 2
+guid: f27d359ec98c2bd43b517c35fb6254b9
+timeCreated: 1454245818
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: artes-03_0
+    21300002: artes-03_1
+    21300004: artes-03_2
+    21300006: artes-03_3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 64
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: artes-03_0
+      rect:
+        serializedVersion: 2
+        x: 1019
+        y: 11145
+        width: 1029
+        height: 2230
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 74.407776, y: -80.803955}
+        - {x: 74.407776, y: 25.196045}
+        - {x: 26.407776, y: 73.196045}
+        - {x: 9.407776, y: 78.196045}
+        - {x: -56.592224, y: 78.196045}
+        - {x: -70.592224, y: 72.196045}
+        - {x: -70.592224, y: -115.803955}
+        - {x: -48.592224, y: -146.80396}
+        - {x: -35.592224, y: -146.80396}
+        - {x: -32.592224, y: -144.80396}
+        - {x: -30.592224, y: -133.80396}
+        - {x: 15.407776, y: -146.80396}
+        - {x: 62.407776, y: -146.80396}
+      - - {x: -5.592224, y: 156.19604}
+        - {x: -21.592224, y: 123.196045}
+        - {x: -21.592224, y: 81.196045}
+        - {x: -14.592224, y: 76.196045}
+        - {x: 30.407776, y: 76.196045}
+        - {x: 35.407776, y: 77.196045}
+        - {x: 41.407776, y: 87.196045}
+        - {x: 41.407776, y: 144.19604}
+        - {x: 39.407776, y: 156.19604}
+    - name: artes-03_1
+      rect:
+        serializedVersion: 2
+        x: 2323
+        y: 11164
+        width: 1029
+        height: 2230
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 75.18329, y: -90.04614}
+        - {x: 75.18329, y: 4.9538574}
+        - {x: 21.183289, y: 74.95386}
+        - {x: -46.81671, y: 74.95386}
+        - {x: -68.81671, y: 52.953857}
+        - {x: -68.81671, y: -53.046143}
+        - {x: -56.81671, y: -150.04614}
+        - {x: -33.81671, y: -150.04614}
+        - {x: -30.816711, y: -144.04614}
+        - {x: -22.816711, y: -150.04614}
+        - {x: 39.18329, y: -150.04614}
+      - - {x: -8.816711, y: 151.95386}
+        - {x: -20.816711, y: 122.95386}
+        - {x: -20.816711, y: 81.95386}
+        - {x: -5.8167114, y: 72.95386}
+        - {x: 36.18329, y: 72.95386}
+        - {x: 42.18329, y: 88.95386}
+        - {x: 42.18329, y: 151.95386}
+    - name: artes-03_2
+      rect:
+        serializedVersion: 2
+        x: 3835
+        y: 11164
+        width: 1029
+        height: 2230
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17.850037, y: 74.95386}
+        - {x: -74.85004, y: 8.953857}
+        - {x: -74.85004, y: -88.04614}
+        - {x: -55.850037, y: -150.04614}
+        - {x: 66.14996, y: -150.04614}
+        - {x: 66.14996, y: 73.95386}
+        - {x: 55.149963, y: 74.95386}
+      - - {x: -41.850037, y: 152.95386}
+        - {x: -44.850037, y: 146.95386}
+        - {x: -44.850037, y: 80.95386}
+        - {x: -29.850037, y: 72.95386}
+        - {x: 14.149963, y: 72.95386}
+        - {x: 18.149963, y: 76.95386}
+        - {x: 18.149963, y: 124.95386}
+        - {x: 3.1499634, y: 152.95386}
+    - name: artes-03_3
+      rect:
+        serializedVersion: 2
+        x: 5104
+        y: 11164
+        width: 1029
+        height: 2230
+      alignment: 9
+      pivot: {x: 0.2533672, y: 0.4837422}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 111.18219, y: -60.783813}
+        - {x: 111.18219, y: 55.216187}
+        - {x: 109.18219, y: 66.21619}
+        - {x: 92.18219, y: 80.21619}
+        - {x: 28.18219, y: 80.21619}
+        - {x: 6.18219, y: 73.21619}
+        - {x: -33.81781, y: -7.7838135}
+        - {x: -33.81781, y: -51.783813}
+        - {x: 6.18219, y: -144.78381}
+        - {x: 25.18219, y: -144.78381}
+        - {x: 32.18219, y: -132.78381}
+        - {x: 69.18219, y: -144.78381}
+        - {x: 93.18219, y: -144.78381}
+      - - {x: 3.18219, y: 157.21619}
+        - {x: -0.81781006, y: 144.21619}
+        - {x: -0.81781006, y: 84.21619}
+        - {x: 3.18219, y: 78.21619}
+        - {x: 49.18219, y: 78.21619}
+        - {x: 63.18219, y: 86.21619}
+        - {x: 63.18219, y: 131.21619}
+        - {x: 38.18219, y: 157.21619}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

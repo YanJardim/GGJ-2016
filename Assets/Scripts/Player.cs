@@ -4,10 +4,8 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
 
-    [Range(0, 20)]
-    public int walkSpeed;
-    [Range(0, 10)]
-    public int runSpeed;
+    private int walkSpeed;
+    private int runSpeed;
 
     private int currentSpeed;
     
@@ -17,6 +15,8 @@ public class Player : MonoBehaviour
 	// Use this for initialization
     void Start()
     {
+        walkSpeed = GameManager.instance.playerSpeed;
+        runSpeed = GameManager.instance.playerRunSpeed;
 
         currentSpeed = walkSpeed;
       
