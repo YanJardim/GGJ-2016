@@ -34,7 +34,7 @@ public class GUI_Cliserv : MonoBehaviour {
                 selecao = 2;
             }
         }
-        else if (selecao == 1)
+        else if (selecao == 1 && !server.GetComponent<Server>().isConnected())
         {
             GUI.Label(new Rect(50, 50, 400, 50), GetLocalIP());
         }

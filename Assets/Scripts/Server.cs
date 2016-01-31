@@ -34,12 +34,13 @@ public class Server : MonoBehaviour
     {
         if (mudar)
         {
+            Debug.Log(mensagem);
             string[] data = mensagem.Split(new char[] { ';' }); ;
             GameObject objeto = GameObject.Find(data[0]);
 
             Vector3 trocar = new Vector3(float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
-            objeto.transform.position = trocar;
             objeto.SetActive(!objeto.activeSelf);
+            objeto.transform.position = trocar;
             mudar = false;
         }
         if(carregar)
@@ -47,6 +48,11 @@ public class Server : MonoBehaviour
             SceneManager.LoadScene("Game", LoadSceneMode.Additive);
             carregar = false;
         }
+    }
+
+    public bool isConnected()
+    {
+        return (client != null);
     }
 
     void Send(string message)
@@ -82,10 +88,14 @@ public class Server : MonoBehaviour
 
         while (!parar)
         {
-            mensagem = sr.ReadLine();
+            string tmp = sr.ReadLine();
 
-            mudar = true;
-            Debug.Log(mensagem);
+            if (tmp != null)
+            {
+                mudar = true;
+                mensagem = tmp;
+                Debug.Log(mensagem);
+            }
         }
     }
 
