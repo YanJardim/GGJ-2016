@@ -30,31 +30,63 @@ public class Server : MonoBehaviour
         thread.Start();
     }
 
-    void Update()
+    int contadora = 0;
+
+    void FixedUpdate()
     {
         if (mudar)
         {
+            mudar = false;
+            Debug.Log(mensagem);
             string[] data = mensagem.Split(new char[] { ';' }); ;
             GameObject objeto = GameObject.Find(data[0]);
-
+            contadora++;
             Vector3 trocar = new Vector3(float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
-            if (objeto.GetComponent<Renderer>().enabled)
+
+            cont++;
+
+            
+
+            if (!objeto.GetComponent<Renderer>().enabled)
             {
                 objeto.transform.Translate(new Vector3(1000, 1000, 1000));
-                objeto.GetComponent<Renderer>().enabled = false;
+                objeto.GetComponent<Renderer>().enabled = true;
+                
             }
             else
             {
                 objeto.transform.position = trocar;
-                objeto.GetComponent<Renderer>().enabled = true;
+                objeto.GetComponent<Renderer>().enabled = false;
+                if (data[4] == "False")
+                {
+                    objeto.GetComponent<Item>().canMove = false;
+                    objeto.GetComponent<Item>().Invoke("can", 30);
+                }
             }
-            mudar = false;
+            
         }
         if(carregar)
         {
-            SceneManager.LoadScene("Game", LoadSceneMode.Additive);
             carregar = false;
+            SceneManager.LoadScene("Game3", LoadSceneMode.Additive);
+
+            Invoke("sync", 2);
+            
         }
+    }
+
+    int cont = 0;
+
+    void sync()
+    {
+        
+        GameObject go = GameManager.instance.gameObject;
+        Debug.LogWarning(go.transform.GetChild(cont));
+        GameObject go2 = go.transform.GetChild(cont).gameObject;
+        SendObject(go2);
+        cont++;
+        if (cont >= 6) return;
+        Invoke("sync", 0.1f);
     }
 
     public bool isConnected()
@@ -71,7 +103,7 @@ public class Server : MonoBehaviour
     void SendObject(object obj)
     {
         GameObject item = obj as GameObject;
-        string s = item.name + ";" + item.transform.position.x + ";" + item.transform.position.y + ";" + item.transform.position.z;
+        string s = item.name + ";" + item.transform.position.x + ";" + item.transform.position.y + ";" + item.transform.position.z + ";" + item.GetComponent<Item>().canMove ;
         Debug.Log(s);
         Send(s);
     }
@@ -87,6 +119,10 @@ public class Server : MonoBehaviour
         sr = new System.IO.StreamReader(stream);
         sw = new System.IO.StreamWriter(stream);
         carregar = true;
+
+        
+
+        
 
         while (!parar)
         {
