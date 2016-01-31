@@ -7,6 +7,7 @@ public enum blocks{
     GRASS,
     RELIC,
     THREE,
+    ALTARBLOCK,
     ALTAR
 };
 
@@ -32,6 +33,7 @@ public class GridBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         setGrass();
+        setAltar();
         setRelics();
         setThrees(30);
         
@@ -43,6 +45,23 @@ public class GridBehaviour : MonoBehaviour {
 	void Update () {
         
 	}
+
+    public void setAltar()
+    {
+        for (int i = 12; i < 20; i++)
+        {
+            for (int j = 12; j < 20; j++)
+            {
+                if(i != 16 && j != 16)
+                    gridGameObjects[i, j] = blocks.ALTARBLOCK;
+                else gridGameObjects[i, j] = blocks.ALTAR;
+            }
+        }
+
+        GameObject aux = Instantiate(GameManager.instance.altar, new Vector2(0, 0), GameManager.instance.altar.transform.rotation) as GameObject;
+
+
+    }
 
     public void setGrass()
     {
@@ -80,7 +99,10 @@ public class GridBehaviour : MonoBehaviour {
             int x = Random.Range(0, gridX);
             int y = Random.Range(0, gridY);
 
-            if(checkThreeArea(x, y, 3) && gridGameObjects[x, y] != blocks.RELIC)
+            if(checkThreeArea(x, y, 3) && gridGameObjects[x, y] != blocks.RELIC
+                && gridGameObjects[x, y] != blocks.ALTARBLOCK
+                && gridGameObjects[x, y] != blocks.ALTAR)
+
                 gridGameObjects[x, y] = blocks.THREE;
         }
                     

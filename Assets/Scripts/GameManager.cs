@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour {
 
     public List<GameObject> threes = new List<GameObject>();
 
+    public GameObject altar;
+
     [Range(0, 20)]
     public int playerSpeed;
     [Range(0, 20)]
