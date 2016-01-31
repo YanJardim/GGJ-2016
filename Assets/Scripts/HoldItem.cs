@@ -13,7 +13,7 @@ public class HoldItem : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown("space"))
         {
-            if (item != null && this.GetComponentsInChildren<Transform>().Length == 1)
+            if (item != null && this.GetComponentsInChildren<Transform>().Length == 3)
             {
                 item.transform.parent = this.transform;
                 itemSegurado = item;
@@ -22,7 +22,7 @@ public class HoldItem : MonoBehaviour {
 
                 GameObject.Find("Socket").SendMessage("SendObject", item);
             }
-            else if (this.GetComponentsInChildren<Transform>().Length > 1)
+            else if (this.GetComponentsInChildren<Transform>().Length > 3)
             {
                 itemSegurado.transform.parent = null;
                 itemSegurado = null;
