@@ -28,6 +28,7 @@ GameObject:
   - 61: {fileID: 6158484}
   - 50: {fileID: 5059592}
   - 82: {fileID: 8297192}
+  - 114: {fileID: 11427370}
   m_Layer: 0
   m_Name: Scroll
   m_TagString: Untagged
@@ -170,6 +171,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &11427370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e535a54a8a0dba7498a8529c2a24eaf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMove: 1
+  relicType: 2
 --- !u!212 &21208618
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -241,6 +255,14 @@ Prefab:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: a14b32fe7d29bd94e92880fe9f6c2ede, type: 3}
+    - target: {fileID: 0}
+      propertyPath: canMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: relicType
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 162430}

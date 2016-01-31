@@ -37,7 +37,7 @@ public class HoldItem : MonoBehaviour {
             }
             else if (this.GetComponentsInChildren<Transform>().Length > 4)
             {
-                itemSegurado.transform.parent = GameManager.instance.gameObject.transform;
+                itemSegurado.transform.parent = GameObject.Find("GameManager").transform;
 
                 Vector3 temp = itemSegurado.transform.position;
                 temp.x = Mathf.Floor(transform.position.x + .5f) - .5f;
