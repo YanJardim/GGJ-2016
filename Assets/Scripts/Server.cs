@@ -3,7 +3,8 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Net;
 
-public class Server : MonoBehaviour {
+public class Server : MonoBehaviour
+{
     TcpListener server;
     TcpClient client;
     NetworkStream stream;
@@ -19,7 +20,8 @@ public class Server : MonoBehaviour {
     int port = 5050;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         server = new TcpListener(IPAddress.Parse(GetLocalIP()), port);
         server.Start();
 
@@ -29,11 +31,11 @@ public class Server : MonoBehaviour {
 
     void Update()
     {
-        if(mudar)
+        if (mudar)
         {
             string[] data = mensagem.Split(new char[] { ';' }); ;
             GameObject objeto = GameObject.Find(data[0]);
-            
+
             Vector3 trocar = new Vector3(float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
             objeto.transform.position = trocar;
             mudar = false;
@@ -105,3 +107,4 @@ public class Server : MonoBehaviour {
         }
         return localIP;
     }
+}

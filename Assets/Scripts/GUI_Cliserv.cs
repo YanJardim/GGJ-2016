@@ -3,12 +3,13 @@ using System.Collections;
 using System.Net;
 
 public class GUI_Cliserv : MonoBehaviour {
+    private string ipServer = "";
     public GameObject server, client;
-    private bool mostraSelecao;
+    private int selecao;
 
 	// Use this for initialization
 	void Start () {
-        mostraSelecao = true;
+        selecao = 0;
 	}
 	
 	// Update is called once per frame
@@ -18,21 +19,30 @@ public class GUI_Cliserv : MonoBehaviour {
 
     void OnGUI()
     {
-        if (mostraSelecao)
+        if (selecao == 0)
         {
             if (GUI.Button(new Rect(50, 50, 400, 50), "Server!"))
             {
                 Instantiate(server, transform.position, transform.rotation);
-                mostraSelecao = false;  
+                selecao = 1;  
             }
             else if (GUI.Button(new Rect(50, 120, 400, 50), "Cliente!"))
             {
-                Instantiate(client, transform.position, transform.rotation);
+                selecao = 2;
             }
         }
-        else
+        else if (selecao == 1)
         {
             GUI.Label(new Rect(50, 50, 400, 50), GetLocalIP());
+        }
+        else if (selecao == 2)
+        {
+            ipServer = GUI.TextField(new Rect(50, 50, 150, 25), ipServer);
+            if (GUI.Button(new Rect(50, 120, 400, 50), "Conectar!!"))
+            {
+                client.SendMessage("Conectar", ipServer);
+                selecao = -1;
+            }
         }
     }
 

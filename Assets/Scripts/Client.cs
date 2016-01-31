@@ -11,13 +11,11 @@ public class Client : MonoBehaviour {
 
     public GameObject[] sincronizar;
 
-    // Use this for initialization
-    void Start () {
+    public void Conectar(object ipServer) {
         // Get a client stream for reading and writing.
         //  Stream stream = client.GetStream();
-        Connect("10.96.25.154");
 
-        
+        Connect(ipServer.ToString());
 
         thread = new Thread(LoopMensagem);
         thread.Start();
