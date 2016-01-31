@@ -163,6 +163,14 @@ MonoBehaviour:
   - {fileID: 170620, guid: e3e1e8e571788c8498351fef3707874c, type: 2}
   - {fileID: 162430, guid: b41ba8778aeff9b48a7abdaf13206b65, type: 2}
   - {fileID: 131754, guid: 41964c2852abbb140a864459eeec5c67, type: 2}
+  threes:
+  - {fileID: 178024, guid: dcdd1ed9f1900c34c95b48a73887256c, type: 2}
+  - {fileID: 193498, guid: 2567982aaa736fa45b9398e62c251d81, type: 2}
+  - {fileID: 152484, guid: b53cdeaff2650414985e303a70bf9fe9, type: 2}
+  - {fileID: 111094, guid: 52d06dd0a42f18046b0251119e59b408, type: 2}
+  - {fileID: 147004, guid: 6181200c8ec4c1941a8763b01b11800e, type: 2}
+  playerSpeed: 0
+  playerRunSpeed: 0
 --- !u!4 &474204259
 Transform:
   m_ObjectHideFlags: 0
@@ -285,10 +293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160dd13ecd734454dbeb72f0931d7f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 7
-  runSpeed: 14
-  item: {fileID: 0}
-  itemSegurado: {fileID: 0}
 --- !u!212 &581879311
 SpriteRenderer:
   m_ObjectHideFlags: 0
