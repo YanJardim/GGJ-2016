@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Net.Sockets;
 using System.Threading;
+using System.Net;
 
-public class Server : MonoBehaviour {
+public class Server : MonoBehaviour
+{
     TcpListener server;
     TcpClient client;
     NetworkStream stream;
@@ -10,20 +12,35 @@ public class Server : MonoBehaviour {
     System.IO.StreamWriter sw;
     Thread thread;
 
+    bool mudar = false;
+
     bool parar = false;
     string mensagem = "Sem mensagem";
 
-    public int port;
+    int port = 5050;
 
     // Use this for initialization
-    void Start () {
-        server = new TcpListener(System.Net.IPAddress.Loopback, port);
+    void Start()
+    {
+        server = new TcpListener(IPAddress.Parse(GetLocalIP()), port);
         server.Start();
 
         thread = new Thread(LoopMensagem);
         thread.Start();
     }
 
+    void Update()
+    {
+        if (mudar)
+        {
+            string[] data = mensagem.Split(new char[] { ';' }); ;
+            GameObject objeto = GameObject.Find(data[0]);
+
+            Vector3 trocar = new Vector3(float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
+            objeto.transform.position = trocar;
+            mudar = false;
+        }
+    }
 
     void Send(string message)
     {
@@ -34,9 +51,11 @@ public class Server : MonoBehaviour {
 
     void LoopMensagem()
     {
+        int i = 0;
         while (!server.Pending())
         {
-            mensagem = "Loop espera Pending";
+            mensagem = "Loop espera Pending" + i;
+            i++;
             Thread.Sleep(10);
         }
         client = server.AcceptTcpClient();
@@ -48,7 +67,9 @@ public class Server : MonoBehaviour {
         while (!parar)
         {
             mensagem = sr.ReadLine();
-            Send("FOIFOI");
+
+            mudar = true;
+            Debug.Log(mensagem);
         }
     }
 
@@ -69,6 +90,21 @@ public class Server : MonoBehaviour {
 
     void OnGUI()
     {
-        GUI.Label(new Rect(50, 50, 1000, 1000), mensagem);
+        GUI.Label(new Rect(100, 500, 1000, 1000), mensagem);
+    }
+
+    string GetLocalIP()
+    {
+        IPHostEntry host;
+        string localIP = "?";
+        host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (IPAddress ip in host.AddressList)
+        {
+            if (ip.AddressFamily.ToString() == "InterNetwork")
+            {
+                localIP = ip.ToString();
+            }
+        }
+        return localIP;
     }
 }
