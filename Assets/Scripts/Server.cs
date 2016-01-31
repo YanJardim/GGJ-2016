@@ -16,7 +16,6 @@ public class Server : MonoBehaviour
     bool mudar = false;
 
     bool parar = false, carregar = false;
-    string mensagem = "Sem mensagem";
 
     int port = 5050;
 
@@ -34,13 +33,20 @@ public class Server : MonoBehaviour
     {
         if (mudar)
         {
-            Debug.Log(mensagem);
             string[] data = mensagem.Split(new char[] { ';' }); ;
             GameObject objeto = GameObject.Find(data[0]);
 
             Vector3 trocar = new Vector3(float.Parse(data[1]), float.Parse(data[2]), float.Parse(data[3]));
-            objeto.SetActive(!objeto.activeSelf);
-            objeto.transform.position = trocar;
+            if (objeto.GetComponent<Renderer>().enabled)
+            {
+                objeto.transform.Translate(new Vector3(1000, 1000, 1000));
+                objeto.GetComponent<Renderer>().enabled = false;
+            }
+            else
+            {
+                objeto.transform.position = trocar;
+                objeto.GetComponent<Renderer>().enabled = true;
+            }
             mudar = false;
         }
         if(carregar)
@@ -57,7 +63,6 @@ public class Server : MonoBehaviour
 
     void Send(string message)
     {
-        mensagem = "ENTROU AQUI";
         sw.WriteLine(message);
         sw.Flush();
     }
@@ -72,18 +77,14 @@ public class Server : MonoBehaviour
 
     void LoopMensagem()
     {
-        int i = 0;
         while (!server.Pending())
         {
-            mensagem = "Loop espera Pending" + i;
-            i++;
             Thread.Sleep(10);
         }
         client = server.AcceptTcpClient();
         stream = client.GetStream();
         sr = new System.IO.StreamReader(stream);
         sw = new System.IO.StreamWriter(stream);
-        mensagem = "Conectado!!";
         carregar = true;
 
         while (!parar)
@@ -94,7 +95,6 @@ public class Server : MonoBehaviour
             {
                 mudar = true;
                 mensagem = tmp;
-                Debug.Log(mensagem);
             }
         }
     }
