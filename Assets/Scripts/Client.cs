@@ -9,7 +9,24 @@ public class Client : MonoBehaviour {
     System.IO.StreamReader sr;
     System.IO.StreamWriter sw;
     TcpClient client;
+    string message;
+    bool mudar = false;
     
+
+    void Update()
+    {
+        if(mudar)
+        {
+            Debug.Log(message);
+            string[] data = message.Split(new char[] { ';' }); ;
+            GameObject objeto = GameObject.Find(data[0]);
+
+            Vector3 trocar = new Vector3(System.Int32.Parse(data[1]), System.Int32.Parse(data[2]), System.Int32.Parse(data[3]));
+            objeto.SetActive(!objeto.activeSelf);
+            objeto.transform.position = trocar;
+            mudar = false;
+        }
+    }
 
     public void Conectar(object ipServer) {
         // Get a client stream for reading and writing.
@@ -27,12 +44,13 @@ public class Client : MonoBehaviour {
         {
             if (stream.DataAvailable)
             {
-                string[] data = sr.ReadLine().Split(new char[] { ';' }); ;
-                GameObject objeto = GameObject.Find(data[0]);
-
-                Vector3 trocar = new Vector3(System.Int32.Parse(data[1]), System.Int32.Parse(data[2]), System.Int32.Parse(data[3]));
-                objeto.transform.position = trocar;
-                objeto.SetActive(!objeto.activeSelf);
+                string temp = sr.ReadLine();
+                if (temp != null)
+                {
+                    message = temp;
+                    Debug.LogWarning(message);
+                    mudar = true;
+                }
 
             }
         }
