@@ -9,26 +9,37 @@ public class Client : MonoBehaviour {
     System.IO.StreamWriter sw;
     TcpClient client;
 
-    // Use this for initialization
-    void Start () {
+    public GameObject[] sincronizar;
+
+    public void Conectar(object ipServer) {
         // Get a client stream for reading and writing.
         //  Stream stream = client.GetStream();
-        Connect("127.0.0.1");
 
-        stream = client.GetStream();
-        sw = new System.IO.StreamWriter(stream);
-        sr = new System.IO.StreamReader(stream);
+        Connect(ipServer.ToString());
 
         thread = new Thread(LoopMensagem);
         thread.Start();
 	}
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            this.Flush();
+        }
+    }
 
 	void LoopMensagem () {
         while (client.Connected)
         {
             if (stream.DataAvailable)
             {
-                Debug.Log(sr.ReadLine());
+                string[] data = sr.ReadLine().Split(new char[] { ';' }); ;
+                GameObject objeto = GameObject.Find(data[0]);
+
+                Vector3 trocar = new Vector3(System.Int32.Parse(data[1]), System.Int32.Parse(data[2]), System.Int32.Parse(data[3]));
+                objeto.transform.position = trocar;
+
             }
         }
     }
@@ -39,13 +50,25 @@ public class Client : MonoBehaviour {
         sw.Flush();
     }
 
+    void Flush()
+    {
+        for(int i = 0; i < sincronizar.Length; i++)
+        {
+            string s = sincronizar[i].name + ";" + sincronizar[i].transform.position.x + ";" + sincronizar[i].transform.position.y + ";" + sincronizar[i].transform.position.z;
+            Debug.Log(s);
+            Send(s);
+        }
+    }
+
     void Connect(string server)
     {
         try
         {
             int port = 5050;
             client = new TcpClient(server, port);
-
+            stream = client.GetStream();
+            sw = new System.IO.StreamWriter(stream);
+            sr = new System.IO.StreamReader(stream);
             Debug.Log("Conectou!");
         }
         catch (System.Exception e)
@@ -61,11 +84,5 @@ public class Client : MonoBehaviour {
         thread.Abort();
     }
 
-    void OnGUI()
-    {
-        if(GUI.Button(new Rect(100, 300, 500,500), "Mensagem"))
-        {
-            Send("Hello World!");
-        }
-    }
+    
 }
