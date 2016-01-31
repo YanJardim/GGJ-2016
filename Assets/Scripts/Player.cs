@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 
     [Range(0, 20)]
     public int walkSpeed;
-    [Range(0, 20)]
+    [Range(0, 10)]
     public int runSpeed;
 
     private int currentSpeed;
@@ -40,16 +40,12 @@ public class Player : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+	{
+		float h = Input.GetAxis ("Horizontal");
+		float v = Input.GetAxis ("Vertical");
 
-        transform.Translate(h * currentSpeed * Time.deltaTime, v * currentSpeed * Time.deltaTime, 0);
-	
-        GetComponent<Rigidbody2D>().velocity = new Vector2(h * currentSpeed, v * currentSpeed);
+		transform.Translate((h/2 - v/2) * currentSpeed * Time.deltaTime, (h/2 + v/2) * currentSpeed * Time.deltaTime, 0);
+		GetComponent<Rigidbody2D>().velocity = new Vector2((h/2 - v/2) * currentSpeed, (h/2 + v/2) * currentSpeed);
 	}
-
-
-
 
 }
