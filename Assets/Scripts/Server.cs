@@ -12,6 +12,7 @@ public class Server : MonoBehaviour
     System.IO.StreamReader sr;
     System.IO.StreamWriter sw;
     Thread thread;
+    string mensagem = "";
 
     bool mudar = false;
 
