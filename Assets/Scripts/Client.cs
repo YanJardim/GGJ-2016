@@ -62,10 +62,10 @@ public class Client : MonoBehaviour {
             sw = new System.IO.StreamWriter(stream);
             sr = new System.IO.StreamReader(stream);
             Debug.Log("Conectou!");
+            SceneManager.LoadScene("Game", LoadSceneMode.Additive);
         }
         catch (System.Exception e)
         {
-            SceneManager.LoadScene("Game", LoadSceneMode.Additive);
             Debug.Log(e.Message);
         }
     }

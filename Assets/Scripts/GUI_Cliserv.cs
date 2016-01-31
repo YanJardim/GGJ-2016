@@ -43,6 +43,7 @@ public class GUI_Cliserv : MonoBehaviour {
             ipServer = GUI.TextField(new Rect(50, 50, 150, 25), ipServer);
             if (GUI.Button(new Rect(50, 120, 400, 50), "Conectar!!"))
             {
+                client = Instantiate(client, transform.position, transform.rotation) as GameObject;
                 client.name = "Socket";
                 client.SendMessage("Conectar", ipServer);
                 selecao = -1;
