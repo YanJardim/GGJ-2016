@@ -15,22 +15,33 @@ public class Client : MonoBehaviour {
     void Start () {
         // Get a client stream for reading and writing.
         //  Stream stream = client.GetStream();
-        Connect("127.0.0.1");
+        Connect("10.96.25.132");
 
-        stream = client.GetStream();
-        sw = new System.IO.StreamWriter(stream);
-        sr = new System.IO.StreamReader(stream);
+        
 
         thread = new Thread(LoopMensagem);
         thread.Start();
 	}
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            this.Flush();
+        }
+    }
 
 	void LoopMensagem () {
         while (client.Connected)
         {
             if (stream.DataAvailable)
             {
-                Debug.Log(sr.ReadLine());
+                string[] data = sr.ReadLine().Split(new char[] { ';' }); ;
+                GameObject objeto = GameObject.Find(data[0]);
+
+                Vector3 trocar = new Vector3(System.Int32.Parse(data[1]), System.Int32.Parse(data[2]), System.Int32.Parse(data[3]));
+                objeto.transform.position = trocar;
+
             }
         }
     }
@@ -47,7 +58,7 @@ public class Client : MonoBehaviour {
         {
             string s = sincronizar[i].name + ";" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z;
             Debug.Log(s);
-            // Send(sincronizar[i].name + ";" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z);
+            Send(s);
         }
     }
 
@@ -57,7 +68,9 @@ public class Client : MonoBehaviour {
         {
             int port = 5050;
             client = new TcpClient(server, port);
-
+            stream = client.GetStream();
+            sw = new System.IO.StreamWriter(stream);
+            sr = new System.IO.StreamReader(stream);
             Debug.Log("Conectou!");
         }
         catch (System.Exception e)
