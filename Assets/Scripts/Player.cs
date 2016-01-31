@@ -32,13 +32,13 @@ public class Player : MonoBehaviour
                 item.transform.parent = this.transform;
                 //item.GetComponent<SpriteRenderer>().enabled = false;
 
-                //Send para desabilitar objeto
+                GameObject.Find("Socket").SendMessage("SendObject", item);
             }
             else if (this.GetComponentsInChildren<Transform>().Length > 2)
             {
                 item.transform.parent = null;
 
-                //Send para habilitar objeto
+                GameObject.Find("Socket").SendMessage("SendObject", item);
             }
         }
 
