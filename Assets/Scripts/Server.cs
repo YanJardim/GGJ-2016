@@ -13,7 +13,7 @@ public class Server : MonoBehaviour {
     bool parar = false;
     string mensagem = "Sem mensagem";
 
-    public int port;
+    int port = 5050;
 
     // Use this for initialization
     void Start () {
