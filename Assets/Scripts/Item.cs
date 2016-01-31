@@ -30,6 +30,7 @@ public class Item : MonoBehaviour
 
     void can()
     {
+
         canMove = true;
     }
 
