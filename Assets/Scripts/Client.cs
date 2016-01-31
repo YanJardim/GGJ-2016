@@ -15,7 +15,7 @@ public class Client : MonoBehaviour {
     void Start () {
         // Get a client stream for reading and writing.
         //  Stream stream = client.GetStream();
-        Connect("10.96.25.132");
+        Connect("10.96.25.154");
 
         
 
@@ -56,7 +56,7 @@ public class Client : MonoBehaviour {
     {
         for(int i = 0; i < sincronizar.Length; i++)
         {
-            string s = sincronizar[i].name + ";" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z;
+            string s = sincronizar[i].name + ";" + sincronizar[i].transform.position.x + ";" + sincronizar[i].transform.position.y + ";" + sincronizar[i].transform.position.z;
             Debug.Log(s);
             Send(s);
         }
