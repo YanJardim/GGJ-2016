@@ -9,6 +9,8 @@ public class Client : MonoBehaviour {
     System.IO.StreamWriter sw;
     TcpClient client;
 
+    GameObject[] sincronizar;
+
     // Use this for initialization
     void Start () {
         // Get a client stream for reading and writing.
@@ -61,11 +63,5 @@ public class Client : MonoBehaviour {
         thread.Abort();
     }
 
-    void OnGUI()
-    {
-        if(GUI.Button(new Rect(100, 300, 500,500), "Mensagem"))
-        {
-            Send("Hello World!");
-        }
-    }
+    
 }
