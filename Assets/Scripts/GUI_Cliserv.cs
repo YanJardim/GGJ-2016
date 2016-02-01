@@ -11,7 +11,9 @@ public class GUI_Cliserv : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         selecao = 0;
-	}
+        ipServer = GetLocalIP();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
