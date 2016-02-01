@@ -26,12 +26,12 @@ public class Client : MonoBehaviour {
             if (objeto.GetComponent<Renderer>().enabled)
             {
                 objeto.transform.Translate(new Vector3(1000, 1000, 1000));
-                objeto.GetComponent<Renderer>().enabled = false;
+                // objeto.GetComponent<Renderer>().enabled = false;
             }
             else
             {
                 objeto.transform.position = trocar;
-                objeto.GetComponent<Renderer>().enabled = true;
+                // objeto.GetComponent<Renderer>().enabled = true;
                 if (data[4] == "False")
                 {
                     objeto.GetComponent<Item>().canMove = false;
